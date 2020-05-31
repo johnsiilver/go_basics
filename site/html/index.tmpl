@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="/assets/css/index.css">
+		<link rel="stylesheet" href="/assets/css/banner.css">
+		<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet"> 
+	</head>
+
+	{{template "banner.tmpl" .}}
+
+	<div id="mainPane">
+		{{$showPrev := .Prev}}
+		{{$showNext := .Next}}
+
+		{{if ne $showPrev -1}}
+			<span id="prevVideo" class="videoControls"><a href="/video/{{$showPrev}}"><</a></span>
+		{{end}}
+
+		{{template "videos.tmpl" .}}
+
+		{{if ne $showNext -1}}
+			<span id="nextVideo" class="videoControls"><a href="/video/{{$showNext}}">></a></span>
+		{{end}}
+	</div>
+
+	<div id="rightPane">
+		{{template "content.tmpl" .}}
+	</div>
+</html>

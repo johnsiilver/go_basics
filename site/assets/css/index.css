@@ -1,0 +1,81 @@
+html, body {
+    min-height: 100% !important;
+    min-width: 100% !important;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+	position: absolute;
+ 	background-color: white;
+ 	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+div#mainPane {
+	position: absolute;
+	top: 102px;
+	background-color: black;
+	float: left;
+	width: 75%;
+	height: calc(100% - 102px);
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+div#mainPane #videoSrc {
+	display: block;
+	position: absolute;
+	margin: 0 auto 0 auto; 
+	padding: 0px;
+	border: 0px;
+	width: 90%;
+	height: inherit;
+	max-height: inherit;
+	top: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-sizing:border-box;
+}
+
+span.videoControls a:link, span.videoControls a:visited{
+	font-family: 'Nanum Gothic', sans-serif;
+	color: white;
+	font-size: 60px;
+	text-decoration: none;
+}
+
+#prevVideo {
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	height: 60px;
+	margin-top:-30px;
+}
+
+#nextVideo {
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	height: 60px;
+	margin-top:-30px;
+}
+
+#rightPane {
+	position: absolute;
+	top: 102px;
+	right: 0%;
+
+	width: 25%;
+	height: calc(100% - 102px);
+
+	overflow: auto;
+
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	background-color: #222;
+}

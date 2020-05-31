@@ -1,0 +1,61 @@
+html, body {
+    min-height: 100% !important;
+    min-width: 100% !important;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+	position: absolute;
+ 	background-color: white;
+ 	padding: 0px;
+	margin: 0px;
+	border: 0px;
+
+	background-image: url("/assets/images/momentum-bg.jpg");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: rgb(163, 163, 163);
+}
+
+h1 { color: #b48608; font-family: 'Droid serif', serif; font-size: 36px; font-weight: 400; font-style: italic; line-height: 44px; margin: 0 0 12px; text-align: center; }
+h2 { color: #eee; font-family: 'Droid serif', serif; font-size: 18px; font-weight: 400; font-style: italic; margin:0px;}
+
+p { color: #eee; font-family: 'Droid Sans', sans-serif; font-size: 18px; font-weight: 400; line-height: 24px; margin: 0 0 14px; }
+
+.textStyle {color: #b48608; text-decoration: none; margin: 10px;}
+
+a { color: #b48608; text-decoration: none; border-bottom: 1px solid #4c3a07; margin: 10px;}
+
+a:hover { color: #fff; background: #b48608; }
+
+div#mainPane {
+	position: absolute;
+	top: 102px;
+	width: 75%;
+	margin: 0;
+	height: calc(100% - 102px);
+	padding: 0px;
+	border: 0px;
+	left: 50%;
+  	-ms-transform: translate(-50%, 0%);
+  	transform: translate(-50%, 0%);
+
+  	background-color: #0E0E0E;
+}
+
+#aboutMe p {
+	position: inline;;
+	float: left;
+}
+
+img#me {
+	position: inline;
+	float: right;
+	width: 648px;
+	height: 432px;
+}
+
+#howItWasMade {
+}
