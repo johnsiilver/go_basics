@@ -1,0 +1,20 @@
+<template id="my-contentTemplate">
+  <link href="/static/components/content/content.css" rel="stylesheet" >
+  <div class="markdown" id="content" >
+    <p>#markdown</p>
+  </div>
+</template>
+<script>
+  window.customElements.define(
+                'my-content',
+                class extends HTMLElement {
+                        constructor() {
+                                super();
+                                let template = document.getElementById('my-contentTemplate');
+                                let templateContent = template.content;
+
+                                const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true));
+                        }
+                }
+        );
+</script>

@@ -1,0 +1,51 @@
+<template id="my-banner-navbarTemplate"> 
+  <link href="/static/components/nav/nav.css" rel="stylesheet" > 
+  <nav id="nav" > 
+    <ul id="navList" > 
+      <li > 
+        <a href="#" class="title" > Sections </a> 
+        <ul > 
+          <li > 
+            <a href="/video/0" > Video 0 </a> 
+          </li> 
+        </ul> 
+      </li> 
+      <li > 
+        <a href="/about" class="title" > About </a> 
+      </li> 
+    </ul> 
+  </nav> 
+</template> 
+<script>
+  window.customElements.define(
+    'my-banner-navbar', 
+    class extends HTMLElement { 
+      constructor() { 
+        super(); 
+        let template = document.getElementById('my-banner-navbarTemplate'); 
+        let templateContent = template.content; 
+        const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true)); 
+      } 
+    } 
+  ); 
+</script><template id="my-bannerTemplate"> 
+  <link href="/static/components/banner/banner.css" rel="stylesheet" > 
+  <a href="/" > <img src="/static/components/banner/scientist.svg" id="gopher" /> </a> 
+  <a href="/" > <span id="title" > Go Language Basics </span> </a> 
+  <my-banner-navbar id="navHolder" > 
+  <nil> 
+  </my-banner-navbar> 
+</template> 
+<script> 
+  window.customElements.define( 
+    'my-banner', 
+    class extends HTMLElement { 
+      constructor() { 
+        super(); 
+        let template = document.getElementById('my-bannerTemplate'); 
+        let templateContent = template.content; 
+        const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true)); 
+      } 
+    } 
+  ); 
+</script>

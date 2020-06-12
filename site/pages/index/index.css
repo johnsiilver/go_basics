@@ -1,0 +1,55 @@
+html, body {
+    min-height: 100% !important;
+    min-width: 100% !important;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+	position: absolute;
+ 	background-color: white;
+ 	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+#banner {
+	display: block;
+	position:absolute;
+	background-color: black;
+	height: 100px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-color: red;
+}
+
+#mainPane {
+	position: absolute;
+	top: 102px;
+	background-color: black;
+	float: left;
+	width: 75%;
+	height: calc(100% - 102px);
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+}
+
+#rightPane {
+	position: absolute;
+	top: 102px;
+	right: 0%;
+
+	width: 25%;
+	height: calc(100% - 102px);
+
+	overflow: auto;
+
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	background-color: #222;
+}

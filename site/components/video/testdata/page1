@@ -1,0 +1,27 @@
+<template id="my-videoTemplate"> 
+  <link href="/static/components/video/video.css" rel="stylesheet" > 
+  <span class="videoControls" id="prevVideo" > 
+    <a href="/video/0" > 
+      <
+    </a> 
+  </span> 
+  <iframe src="https://player.vimeo.com/video/422491427" allow="autoplay; fullscreen" allowfullscreen="true" id="videoSrc" style="border:none;" ></iframe> 
+  <span class="videoControls" id="nextVideo" > 
+    <a href="/video/2" > 
+      > 
+    </a> 
+  </span> 
+</template> 
+<script> 
+  window.customElements.define( 
+    'my-video', 
+    class extends HTMLElement { 
+      constructor() { 
+        super(); 
+        let template = document.getElementById('my-videoTemplate'); 
+        let templateContent = template.content; 
+        const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true)); 
+      } 
+    } 
+  ); 
+</script>

@@ -1,17 +1,4 @@
-#banner {
-	display: block;
-	position:absolute;
-	background-color: black;
-	height: 100px;
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
-	border-bottom-width: 2px;
-	border-bottom-style: solid;
-	border-color: red;
-}
-
-#banner #gopher {
+#gopher {
 	position: absolute;
 	left: 15px;
 	height: 90px;
@@ -19,7 +6,7 @@
 	margin-top:-45px;
 }
 
-span#title {
+#title {
 	position: absolute;
 	top: 50%;
 	left: 100px;
@@ -30,7 +17,7 @@ span#title {
 	font-size: 60px;
 }
 
-div#navHolder {
+#navHolder {
 	position: absolute;
 	bottom: 10px;
 	right: 20px;
@@ -41,7 +28,7 @@ div#navHolder {
 	padding: 0px;
 }
 
-span#about a:link, a:visited{
+#about a:link, a:visited{
 	position: absolute;
 	bottom: 10px;
 	right: 20px;

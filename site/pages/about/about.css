@@ -12,7 +12,7 @@ body {
 	margin: 0px;
 	border: 0px;
 
-	background-image: url("/assets/images/momentum-bg.jpg");
+	background-image: url("/static/pages/about/momentum-bg.jpg");
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -29,6 +29,19 @@ p { color: #eee; font-family: 'Droid Sans', sans-serif; font-size: 18px; font-we
 a { color: #b48608; text-decoration: none; border-bottom: 1px solid #4c3a07; margin: 10px;}
 
 a:hover { color: #fff; background: #b48608; }
+
+#banner {
+	display: block;
+	position:absolute;
+	background-color: black;
+	height: 100px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-color: red;
+}
 
 div#mainPane {
 	position: absolute;

@@ -1,0 +1,33 @@
+<template id="nav-barTemplate"> 
+  <link href="/static/components/nav/nav.css" rel="stylesheet" > 
+  <nav id="nav" > 
+    <ul id="navList" > 
+      <li > 
+        <a href="#" class="title" > Sections </a> 
+        <ul > 
+          <li > 
+            <a href="/video/0" > Video 0 </a> 
+          </li><li > 
+            <a href="/video/1" > Video 1 </a> 
+          </li> 
+        </ul> 
+      </li> 
+      <li > 
+        <a href="/about" class="title" > About </a> 
+      </li> 
+    </ul> 
+  </nav>
+</template>
+  <script>
+  window.customElements.define(
+    'nav-bar',
+    class extends HTMLElement { 
+      constructor() { 
+        super(); 
+        let template = document.getElementById('nav-barTemplate'); 
+        let templateContent = template.content; 
+        const shadowRoot = this.attachShadow({mode: 'open'}).appendChild(templateContent.cloneNode(true)); 
+      } 
+    } 
+  ); 
+</script>
