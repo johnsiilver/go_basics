@@ -46,7 +46,7 @@ func main() {
 	}
 
 	h := handlers.New(opts...)
-	h.ServeFilesWorkingDir([]string{".css", ".jpg", ".svg", ".png"})
+	h.ServeFilesWorkingDir([]string{".css", ".jpg", ".svg", ".png", ".ico"})
 
 	index, err := index.New(conf)
 	if err != nil {

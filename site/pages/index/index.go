@@ -39,6 +39,7 @@ func New(conf *config.VideoFiles) (*Doc, error) {
 				&Link{Rel: "stylesheet", Href: URLParse("/static/pages/index/index.css")},
 				&Link{Href: URLParse("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"), Rel: "stylesheet"},
 				&Link{Href: URLParse("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"), Rel: "stylesheet"},
+				&Link{Rel:"icon", Type: "image/jpg", Href: URLParse("/static/pages/index/go.jpg")},
 			},
 		},
 		Body: &Body{
