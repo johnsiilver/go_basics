@@ -34,6 +34,8 @@ github.com/johnsiilver/webgear v0.0.0-20200612182948-28632aac6009 h1:2J1ewIsYbAv
 github.com/johnsiilver/webgear v0.0.0-20200612182948-28632aac6009/go.mod h1:cMq7KURJVuft5RBIFcKdgbFiB74D4JXL6PDD5kZNHZ0=
 github.com/johnsiilver/webgear v0.1.0 h1:ezgAlKJ7dSRwBcFnhPXOvaXMD4/hhNuOeCvi9Q9SZ0w=
 github.com/johnsiilver/webgear v0.1.0/go.mod h1:6e80FA0NfWXXpXQCzAWSzH9rP7EPs3C/caZlsCZZNic=
+github.com/johnsiilver/webgear v0.1.1 h1:C75noEyTQAVYyj3yhnbJzmExpLAaZ5cSCOz2L0Ey2hM=
+github.com/johnsiilver/webgear v0.1.1/go.mod h1:6e80FA0NfWXXpXQCzAWSzH9rP7EPs3C/caZlsCZZNic=
 github.com/kylelemons/godebug v1.1.0/go.mod h1:9/0rRGxNHcop5bhtWyNeEfOS8JIWk580+fNqagV/RAw=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
