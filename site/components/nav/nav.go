@@ -6,27 +6,28 @@ import (
 
 	"github.com/johnsiilver/go_basics/site/config"
 	"github.com/johnsiilver/webgear/component"
-	"github.com/johnsiilver/webgear/html"
+
+	. "github.com/johnsiilver/webgear/html"
 )
 
-// menuList provides a method, Items() that implements html.Dynamic. It takes a list of MenuItems from the
-// Pipeline and renders them as html.Li objects wrapping html.A representing a menu.
+// menuList provides a method, Items() that implements Dynamic. It takes a list of MenuItems from the
+// Pipeline and renders them as Li objects wrapping A representing a menu.
 type menuList struct {
 	conf *config.VideoFiles
 }
 
-// Items implements html.DynamicFunc.
-func (m menuList) Items(pipe html.Pipeline) []html.Element {
-	elements := []html.Element{}
+// Items implements DynamicFunc.
+func (m menuList) Items(pipe Pipeline) []Element {
+	elements := []Element{}
 
 	for _, item := range *m.conf {
 		elements = append(
 			elements,
-			&html.Li{
-				Elements: []html.Element{
-					&html.A{
-						Href:     fmt.Sprintf("/video/%d", item.Index),
-						Elements: []html.Element{html.TextElement(item.Name)},
+			&Li{
+				Elements: []Element{
+					&A{
+						Href:     URLParse(fmt.Sprintf("/video/%d", item.Index)),
+						Elements: []Element{TextElement(item.Name)},
 					},
 				},
 			},
@@ -36,8 +37,8 @@ func (m menuList) Items(pipe html.Pipeline) []html.Element {
 	return elements
 }
 
-func scriptsToElements(scripts []*html.Script) []html.Element {
-	n := make([]html.Element, len(scripts))
+func scriptsToElements(scripts []*Script) []Element {
+	n := make([]Element, len(scripts))
 	for _, s := range scripts {
 		n = append(n, s)
 	}
@@ -45,42 +46,42 @@ func scriptsToElements(scripts []*html.Script) []html.Element {
 }
 
 // New constructs a new component that shows a nav bar.
-func New(name string, conf *config.VideoFiles, scripts []*html.Script, options ...component.Option) (*component.Gear, error) {
-	var doc = &html.Doc{
-		Body: &html.Body{
+func New(name string, conf *config.VideoFiles, scripts []*Script, options ...component.Option) (*component.Gear, error) {
+	var doc = &Doc{
+		Body: &Body{
 			Elements: append(
 				append(
-					[]html.Element{
-						&html.Link{Rel: "stylesheet", Href: html.URLParse("/static/components/nav/nav.css")},
+					[]Element{
+						&Link{Rel: "stylesheet", Href: URLParse("/static/components/nav/nav.css")},
 					},
 					scriptsToElements(scripts)...,
 				),
-				&html.Nav{
-					GlobalAttrs: html.GlobalAttrs{
+				&Nav{
+					GlobalAttrs: GlobalAttrs{
 						ID: "nav",
 					},
-					Elements: []html.Element{
-						&html.Ul{
-							GlobalAttrs: html.GlobalAttrs{ID: "navList"},
-							Elements: []html.Element{
-								&html.Li{
-									Elements: []html.Element{
-										&html.A{ // Top level button.
-											Href:        "#",
-											Elements:    []html.Element{html.TextElement("Sections")},
-											GlobalAttrs: html.GlobalAttrs{Class: "title"},
+					Elements: []Element{
+						&Ul{
+							GlobalAttrs: GlobalAttrs{ID: "navList"},
+							Elements: []Element{
+								&Li{
+									Elements: []Element{
+										&A{ // Top level button.
+											Href:        URLParse("#"),
+											Elements:    []Element{TextElement("Sections")},
+											GlobalAttrs: GlobalAttrs{Class: "title"},
 										},
-										&html.Ul{
-											Elements: []html.Element{html.Dynamic(menuList{conf}.Items)},
+										&Ul{
+											Elements: []Element{Dynamic(menuList{conf}.Items)},
 										},
 									},
 								},
-								&html.Li{
-									Elements: []html.Element{
-										&html.A{ // Top level button.
-											Href:        "/about",
-											Elements:    []html.Element{html.TextElement("About")},
-											GlobalAttrs: html.GlobalAttrs{Class: "title"},
+								&Li{
+									Elements: []Element{
+										&A{ // Top level button.
+											Href:        URLParse("/about"),
+											Elements:    []Element{TextElement("About")},
+											GlobalAttrs: GlobalAttrs{Class: "title"},
 										},
 									},
 								},

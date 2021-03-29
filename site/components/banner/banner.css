@@ -1,17 +1,30 @@
+#banner {
+	position: relative;
+	display: flex;
+	background-color: black;
+	height: 100px;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-color: red;
+}
+
 #gopher {
 	position: absolute;
 	left: 15px;
 	height: 90px;
 	top: 50%;
-	margin-top:-45px;
+	margin-top: -45px;
 }
 
 #title {
 	position: absolute;
-	top: 50%;
 	left: 100px;
 	height: 60px;
-	margin-top:-30px;
+	top: 50%;
+	margin-top: -30px;
 	font-family: 'Share Tech Mono', monospace;
 	color: white;
 	font-size: 60px;

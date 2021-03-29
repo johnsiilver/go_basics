@@ -1,17 +1,24 @@
+#video {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	background-color: black;
+	padding: 0px;
+	margin: 0px;
+}
+
 #videoSrc {
-	display: block;
 	position: absolute;
-	margin: 0 auto 0 auto; 
+	width: 80%;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
 	padding: 0px;
 	border: 0px;
-	width: 90%;
 	height: inherit;
-	max-height: inherit;
-	top: 30px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-sizing:border-box;
+	max-height: inherit:
+	box-sizing:border-box;
 }
 
 span.videoControls a:link, span.videoControls a:visited{

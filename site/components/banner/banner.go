@@ -2,13 +2,13 @@ package banner
 
 import (
 	"fmt"
-	"html/template"
-
-	"github.com/johnsiilver/go_basics/site/config"
 
 	"github.com/johnsiilver/go_basics/site/components/nav"
+	"github.com/johnsiilver/go_basics/site/config"
 	"github.com/johnsiilver/webgear/component"
-	"github.com/johnsiilver/webgear/html"
+	"github.com/johnsiilver/webgear/html/builder"
+
+	. "github.com/johnsiilver/webgear/html"
 )
 
 // New constructs a new component that shows a banner.  Execution requires passing a
@@ -19,42 +19,26 @@ func New(name string, conf *config.VideoFiles, options ...component.Option) (*co
 		return nil, err
 	}
 
-	doc := &html.Doc{
-		Body: &html.Body{
-			GlobalAttrs: html.GlobalAttrs{ID: "banner"},
-			Elements: []html.Element{
-				&html.Link{Rel: "stylesheet", Href: html.URLParse("/static/components/banner/banner.css")},
-				&html.A{
-					Href: "/",
-					Elements: []html.Element{
-						&html.Img{
-							GlobalAttrs: html.GlobalAttrs{ID: "gopher"},
-							Src:         html.URLParse("/static/components/banner/scientist.svg"),
-						},
-					},
-				},
-				&html.A{
-					Href: "/",
-					Elements: []html.Element{
-						&html.Span{
-							GlobalAttrs: html.GlobalAttrs{ID: "title"},
-							Elements: []html.Element{
-								html.TextElement("Go Language Basics"),
-							},
-						},
-					},
-				},
-				&html.Component{
-					GlobalAttrs: html.GlobalAttrs{ID: "navHolder"},
-					TagType:     template.HTMLAttr(nav.Name()),
-				},
+	build := builder.NewHTML(&Head{}, &Body{})
+	build.Into(&Div{GlobalAttrs: GlobalAttrs{ID: "banner"}})
+	build.Add(
+		&Link{Rel: "stylesheet", Href: URLParse("/static/components/banner/banner.css")},
+		&A{
+			Href: URLParse("/"),
+			Elements: []Element{
+				&Img{GlobalAttrs: GlobalAttrs{ID: "gopher"}, Src: URLParse("/static/components/banner/scientist.svg")},
 			},
 		},
-	}
+		&Span{GlobalAttrs: GlobalAttrs{ID: "title"}, Elements: []Element{TextElement("Go Language Basics")}},
+		&Div{
+			GlobalAttrs: GlobalAttrs{ID: "navHolder"},
+			Elements:    []Element{&Component{GlobalAttrs: GlobalAttrs{ID: "navHolder"}, Gear: nav}},
+		},
+	)
 
 	options = append(options, component.AddGear(nav))
 
-	gear, err := component.New(name, doc, options...)
+	gear, err := component.New(name, build.Doc(), options...)
 	if err != nil {
 		return nil, err
 	}

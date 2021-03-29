@@ -1,11 +1,10 @@
 package about
 
 import (
-	"html/template"
-
 	"github.com/johnsiilver/go_basics/site/components/banner"
 	"github.com/johnsiilver/go_basics/site/config"
-	"github.com/johnsiilver/webgear/html"
+
+	. "github.com/johnsiilver/webgear/html"
 )
 
 const (
@@ -18,99 +17,99 @@ type aboutMeSection struct {
 }
 
 type aboutMe struct {
-	elements []html.Element
+	elements []Element
 }
 
 func newAboutMe(sections []aboutMeSection) aboutMe {
-	elements := []html.Element{
-		&html.H{
+	elements := []Element{
+		&H{
 			Level: 1,
-			Elements: []html.Element{
-				html.TextElement("A Little About Me"),
+			Elements: []Element{
+				TextElement("A Little About Me"),
 			},
 		},
-		&html.Img{
-			GlobalAttrs: html.GlobalAttrs{ID: "me"},
-			Src:         html.URLParse("/static/pages/about/me.png"),
+		&Img{
+			GlobalAttrs: GlobalAttrs{ID: "me"},
+			Src:         URLParse("/static/pages/about/me.png"),
 		},
 	}
 
 	for _, section := range sections {
 		elements = append(
 			elements,
-			&html.H{
+			&H{
 				Level: 2,
-				Elements: []html.Element{
-					html.TextElement(section.Title),
+				Elements: []Element{
+					TextElement(section.Title),
 				},
 			},
 		)
 		for i := 0; i < len(section.Value); i++ {
 			elements = append(
 				elements,
-				&html.Span{
-					GlobalAttrs: html.GlobalAttrs{Class: "textStyle"},
-					Elements: []html.Element{
-						html.TextElement(section.Value[i]),
+				&Span{
+					GlobalAttrs: GlobalAttrs{Class: "textStyle"},
+					Elements: []Element{
+						TextElement(section.Value[i]),
 					},
 				},
 			)
 			if i+1 < len(section.Value) {
-				elements = append(elements, &html.BR{})
+				elements = append(elements, &BR{})
 			}
 		}
 	}
 	return aboutMe{elements}
 }
 
-func (a aboutMe) dynamic(pipe html.Pipeline) []html.Element {
+func (a aboutMe) dynamic(pipe Pipeline) []Element {
 	return a.elements
 }
 
 // New constructs the page for "about" the site.
-func New(conf *config.VideoFiles) (*html.Doc, error) {
+func New(conf *config.VideoFiles) (*Doc, error) {
 	ban, err := banner.New(bannerGearName, conf)
 	if err != nil {
 		return nil, err
 	}
 
-	doc := &html.Doc{
-		Head: &html.Head{
-			Elements: []html.Element{
-				&html.Title{TagValue: html.TextElement("Go Language Basics")},
-				&html.Link{Rel: "stylesheet", Href: html.URLParse("/static/pages/about/about.css")},
-				&html.Link{Rel: "stylesheet", Href: html.URLParse("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap")},
+	doc := &Doc{
+		Head: &Head{
+			Elements: []Element{
+				&Title{TagValue: TextElement("Go Language Basics")},
+				&Link{Rel: "stylesheet", Href: URLParse("/static/pages/about/about.css")},
+				&Link{Rel: "stylesheet", Href: URLParse("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap")},
 			},
 		},
-		Body: &html.Body{
-			Elements: []html.Element{
+		Body: &Body{
+			Elements: []Element{
 				ban,
-				&html.Component{GlobalAttrs: html.GlobalAttrs{ID: "banner"}, TagType: template.HTMLAttr(ban.Name())},
-				&html.Div{
-					GlobalAttrs: html.GlobalAttrs{ID: "mainPane"},
-					Elements: []html.Element{
-						&html.Div{
-							GlobalAttrs: html.GlobalAttrs{
+				&Component{GlobalAttrs: GlobalAttrs{ID: "banner"}, Gear: ban},
+				&Div{
+					GlobalAttrs: GlobalAttrs{ID: "mainPane"},
+					Elements: []Element{
+						&Div{
+							GlobalAttrs: GlobalAttrs{
 								ID: "aboutSite",
 							},
-							Elements: []html.Element{
-								&html.H{
+							Elements: []Element{
+								&H{
 									Level:    1,
-									Elements: []html.Element{html.TextElement("About The Site")},
+									Elements: []Element{TextElement("About The Site")},
 								},
-								&html.P{
-									Elements: []html.Element{
-										html.TextElement("Golang Basics is for developers wanting an introduction into programming in Go."),
+								&P{
+									Elements: []Element{
+										TextElement("Golang Basics is for developers wanting an introduction into programming in Go."),
 									},
 								},
-								&html.P{
-									Elements: []html.Element{
-										html.TextElement("It is built off of several years experience teaching Go around the world for Google."),
+								&P{
+									Elements: []Element{
+										TextElement("It is built off of several years experience teaching Go around the world for Google."),
 									},
 								},
-								&html.P{
-									Elements: []html.Element{
-										html.TextElement(
+								&P{
+									Elements: []Element{
+										TextElement(
 											"This class will teach the basics of the language so that you can then begin exploring " +
 												"Go tooling and advanced concepts that many great Gophers (what we call Go developers) have written.",
 										),
@@ -118,10 +117,10 @@ func New(conf *config.VideoFiles) (*html.Doc, error) {
 								},
 							},
 						},
-						&html.Div{
-							GlobalAttrs: html.GlobalAttrs{ID: "aboutMe"},
-							Elements: []html.Element{
-								html.Dynamic(newAboutMe(
+						&Div{
+							GlobalAttrs: GlobalAttrs{ID: "aboutMe"},
+							Elements: []Element{
+								Dynamic(newAboutMe(
 									[]aboutMeSection{
 										{
 											"Name",
@@ -142,28 +141,28 @@ func New(conf *config.VideoFiles) (*html.Doc, error) {
 										},
 									},
 								).dynamic),
-								&html.H{
+								&H{
 									Level: 2,
-									Elements: []html.Element{
-										html.TextElement("Websites"),
+									Elements: []Element{
+										TextElement("Websites"),
 									},
 								},
-								&html.A{
-									Href: "http://www.gophersre.com",
-									Elements: []html.Element{
-										html.TextElement("gophersre.com"),
+								&A{
+									Href: URLParse("http://www.gophersre.com"),
+									Elements: []Element{
+										TextElement("gophersre.com"),
 									},
 								},
-								&html.A{
-									Href: "http://www.obscuredworld.com",
-									Elements: []html.Element{
-										html.TextElement("obscuredworld"),
+								&A{
+									Href: URLParse("http://www.obscuredworld.com"),
+									Elements: []Element{
+										TextElement("obscuredworld"),
 									},
 								},
-								&html.A{
-									Href: "http://www.linkedin.com/in/johngdoak/",
-									Elements: []html.Element{
-										html.TextElement("LinkedIn"),
+								&A{
+									Href: URLParse("http://www.linkedin.com/in/johngdoak/"),
+									Elements: []Element{
+										TextElement("LinkedIn"),
 									},
 								},
 							},

@@ -8,7 +8,9 @@ import (
 
 	"github.com/johnsiilver/go_basics/site/config"
 	"github.com/johnsiilver/webgear/component"
-	"github.com/johnsiilver/webgear/html"
+	"github.com/johnsiilver/webgear/html/builder"
+
+	. "github.com/johnsiilver/webgear/html"
 )
 
 // video has controls for dealing with the videos.
@@ -17,7 +19,7 @@ type video struct {
 }
 
 // prev looks at the URL, finds if we have previous videos in the list and if so, displays a link that loads the previous video.
-func (v video) prev(pipe html.Pipeline) []html.Element {
+func (v video) prev(pipe Pipeline) []Element {
 	indexStr := path.Base(pipe.Req.URL.Path)
 	index, err := strconv.Atoi(indexStr)
 	if err != nil {
@@ -29,16 +31,16 @@ func (v video) prev(pipe html.Pipeline) []html.Element {
 		return nil
 	}
 
-	return []html.Element{
-		&html.Span{
-			GlobalAttrs: html.GlobalAttrs{
+	return []Element{
+		&Span{
+			GlobalAttrs: GlobalAttrs{
 				ID:    "prevVideo",
 				Class: "videoControls",
 			},
-			Elements: []html.Element{
-				&html.A{
-					Elements: []html.Element{html.TextElement("<")},
-					Href:     fmt.Sprintf("/video/%d", index-1),
+			Elements: []Element{
+				&A{
+					Elements: []Element{TextElement("<")},
+					Href:     URLParse(fmt.Sprintf("/video/%d", index-1)),
 				},
 			},
 		},
@@ -46,7 +48,7 @@ func (v video) prev(pipe html.Pipeline) []html.Element {
 }
 
 // next looks at the URL, finds if we have more videos in the list and if so, displays a link that loads the next video.
-func (v video) next(pipe html.Pipeline) []html.Element {
+func (v video) next(pipe Pipeline) []Element {
 	indexStr := path.Base(pipe.Req.URL.Path)
 	index, err := strconv.Atoi(indexStr)
 	if err != nil {
@@ -58,16 +60,16 @@ func (v video) next(pipe html.Pipeline) []html.Element {
 		return nil
 	}
 
-	return []html.Element{
-		&html.Span{
-			GlobalAttrs: html.GlobalAttrs{
+	return []Element{
+		&Span{
+			GlobalAttrs: GlobalAttrs{
 				ID:    "nextVideo",
 				Class: "videoControls",
 			},
-			Elements: []html.Element{
-				&html.A{
-					Elements: []html.Element{html.TextElement(">")},
-					Href:     fmt.Sprintf("/video/%d", index+1),
+			Elements: []Element{
+				&A{
+					Elements: []Element{TextElement(">")},
+					Href:     URLParse(fmt.Sprintf("/video/%d", index+1)),
 				},
 			},
 		},
@@ -75,7 +77,7 @@ func (v video) next(pipe html.Pipeline) []html.Element {
 }
 
 // display looks at the URL, finds the video in our config and creates an iframe according to Vimeo specs.
-func (v video) display(pipe html.Pipeline) []html.Element {
+func (v video) display(pipe Pipeline) []Element {
 	indexStr := path.Base(pipe.Req.URL.Path)
 	index, err := strconv.Atoi(indexStr)
 	if err != nil {
@@ -90,13 +92,13 @@ func (v video) display(pipe html.Pipeline) []html.Element {
 
 	videoConf := (*v.conf)[index]
 
-	return []html.Element{
-		&html.IFrame{
-			GlobalAttrs: html.GlobalAttrs{
+	return []Element{
+		&IFrame{
+			GlobalAttrs: GlobalAttrs{
 				ID:    "videoSrc",
 				Style: "border:none;",
 			},
-			Src:             html.URLParse(videoConf.URL),
+			Src:             URLParse(videoConf.URL),
 			Allow:           "autoplay; fullscreen",
 			AllowFullscreen: true,
 		},
@@ -107,18 +109,16 @@ func (v video) display(pipe html.Pipeline) []html.Element {
 func New(name string, conf *config.VideoFiles, options ...component.Option) (*component.Gear, error) {
 	vc := video{conf}
 
-	var doc = &html.Doc{
-		Body: &html.Body{
-			Elements: []html.Element{
-				&html.Link{Rel: "stylesheet", Href: html.URLParse("/static/components/video/video.css")},
-				html.Dynamic(vc.prev),
-				html.Dynamic(vc.display),
-				html.Dynamic(vc.next),
-			},
-		},
-	}
+	build := builder.NewHTML(&Head{}, &Body{})
+	build.Into(&Div{GlobalAttrs: GlobalAttrs{ID: "video"}})
+	build.Add(
+		&Link{Rel: "stylesheet", Href: URLParse("/static/components/video/video.css")},
+		Dynamic(vc.prev),
+		Dynamic(vc.display),
+		Dynamic(vc.next),
+	)
 
-	gear, err := component.New(name, doc, options...)
+	gear, err := component.New(name, build.Doc(), options...)
 	if err != nil {
 		return nil, err
 	}
