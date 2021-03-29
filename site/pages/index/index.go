@@ -46,9 +46,9 @@ func New(conf *config.VideoFiles) (*Doc, error) {
 				bannerGear, // This causes the code to render.
 				videoGear,
 				contentGear,
-				&Component{GlobalAttrs: GlobalAttrs{ID: "banner"}, Gear: bannerGear},
-				&Component{GlobalAttrs: GlobalAttrs{ID: "mainPane"}, Gear: videoGear},
-				&Component{GlobalAttrs: GlobalAttrs{ID: "rightPane"}, Gear: contentGear},
+				&Component{Gear: bannerGear},
+				&Component{Gear: videoGear},
+				&Component{Gear: contentGear},
 			},
 		},
 	}

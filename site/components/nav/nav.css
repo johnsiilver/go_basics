@@ -1,3 +1,6 @@
+#container{
+}
+
 #navList {
     margin: 0px;
     border: 0px;
@@ -48,7 +51,7 @@ ul#navList li:hover > ul
 {
 /*these 2 styles are very important,
 being the ones which make the drop-down to appear on hover */
-    visibility:visible;
+    visibility:visible !important;
     opacity:1;
 }
  
@@ -100,3 +103,4 @@ ul#navList ul li a {
     float:left;
     clear:both;
     width:150px;
+}

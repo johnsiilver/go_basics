@@ -99,6 +99,7 @@ func (v video) display(pipe Pipeline) []Element {
 				Style: "border:none;",
 			},
 			Src:             URLParse(videoConf.URL),
+			Loading: LazyILoad,
 			Allow:           "autoplay; fullscreen",
 			AllowFullscreen: true,
 		},

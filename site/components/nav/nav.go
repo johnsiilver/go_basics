@@ -6,6 +6,7 @@ import (
 
 	"github.com/johnsiilver/go_basics/site/config"
 	"github.com/johnsiilver/webgear/component"
+	"github.com/johnsiilver/webgear/html/builder"
 
 	. "github.com/johnsiilver/webgear/html"
 )
@@ -47,53 +48,31 @@ func scriptsToElements(scripts []*Script) []Element {
 
 // New constructs a new component that shows a nav bar.
 func New(name string, conf *config.VideoFiles, scripts []*Script, options ...component.Option) (*component.Gear, error) {
-	var doc = &Doc{
-		Body: &Body{
-			Elements: append(
-				append(
-					[]Element{
-						&Link{Rel: "stylesheet", Href: URLParse("/static/components/nav/nav.css")},
-					},
-					scriptsToElements(scripts)...,
-				),
-				&Nav{
-					GlobalAttrs: GlobalAttrs{
-						ID: "nav",
-					},
-					Elements: []Element{
-						&Ul{
-							GlobalAttrs: GlobalAttrs{ID: "navList"},
-							Elements: []Element{
-								&Li{
-									Elements: []Element{
-										&A{ // Top level button.
-											Href:        URLParse("#"),
-											Elements:    []Element{TextElement("Sections")},
-											GlobalAttrs: GlobalAttrs{Class: "title"},
-										},
-										&Ul{
-											Elements: []Element{Dynamic(menuList{conf}.Items)},
-										},
-									},
-								},
-								&Li{
-									Elements: []Element{
-										&A{ // Top level button.
-											Href:        URLParse("/about"),
-											Elements:    []Element{TextElement("About")},
-											GlobalAttrs: GlobalAttrs{Class: "title"},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			),
+	build := builder.NewHTML(&Head{}, &Body{})
+	build.Into(
+		&Div{
+			GlobalAttrs: GlobalAttrs{ID: "container"},
 		},
-	}
+	)
+	build.Add(&Link{Rel: "stylesheet", Href: URLParse("/static/components/nav/nav.css")})
+	build.Add(scriptsToElements(scripts)...)
+	build.Into(&Nav{GlobalAttrs: GlobalAttrs{ID: "nav"}})
 
-	gear, err := component.New(name, doc, options...)
+	build.Into(&Ul{GlobalAttrs: GlobalAttrs{ID: "navList"}})
+
+	build.Into(&Li{})
+
+	// Top level button "Sections"
+	build.Add(&A{GlobalAttrs: GlobalAttrs{Class: "title"}, Href:        URLParse("#"), Elements:    []Element{TextElement("Sections")}})
+	build.Add(&Ul{GlobalAttrs: GlobalAttrs{Class: "items", Style: "visibility: hidden;"}, Elements: []Element{Dynamic(menuList{conf}.Items)}})
+	build.Up() // At navList level
+
+	// Top level button "About"
+	build.Into(&Li{})
+
+	build.Add(&A{GlobalAttrs: GlobalAttrs{Class: "title"}, Href:        URLParse("/about"), Elements:    []Element{TextElement("About")}})
+
+	gear, err := component.New(name, build.Doc(), options...)
 	if err != nil {
 		return nil, err
 	}
