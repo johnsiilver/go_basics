@@ -4,14 +4,16 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"time"
 
 	"github.com/johnsiilver/go_basics/site/config"
 	"github.com/johnsiilver/go_basics/site/pages/about"
 	"github.com/johnsiilver/go_basics/site/pages/index"
-
 	"github.com/johnsiilver/webgear/handlers"
+
+	"github.com/caddyserver/certmagic"
 )
 
 var (
@@ -27,6 +29,19 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	flag.Parse()
+
+	var tlsListen net.Listener
+	if !*debug {
+		certmagic.DefaultACME.Agreed = true
+		certmagic.DefaultACME.Email = "johnsiilver@gmail.com"
+		certmagic.DefaultACME.CA = certmagic.LetsEncryptStagingCA
+
+		var err error
+		tlsListen, err = certmagic.Listen([]string{"gophersre.com", "golangsre.com"})
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 
 	log.Println("CommandLine Flags:")
 	flag.CommandLine.VisitAll(
@@ -72,5 +87,9 @@ func main() {
 
 	log.Printf("http server serving on :%d", *port)
 
-	log.Fatal(server.ListenAndServe())
+	if *debug {
+		log.Fatal(server.ListenAndServe())
+	} else {
+		log.Fatal(server.Serve(tlsListen))
+	}
 }
